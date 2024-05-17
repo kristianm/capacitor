@@ -163,6 +163,13 @@ open class HttpRequestHandler {
 
     public static func request(_ call: CAPPluginCall, _ httpMethod: String?, _ config: InstanceConfiguration?) throws {
         guard var urlString = call.getString("url") else { throw URLError(.badURL) }
+        print("Request for url: \(urlString)")
+        if urlString.contains("4.33.5") {
+            let originalUrlString = urlString
+            urlString = urlString.replacingOccurrences(of: "4.33.5", with: "4.32.4")
+            print("Original URL: \(originalUrlString)")
+            print("Modified URL: \(urlString)")
+        }
         let method = httpMethod ?? call.getString("method", "GET")
 
         let headers = (call.getObject("headers") ?? [:]) as [String: Any]
